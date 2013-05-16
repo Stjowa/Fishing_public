@@ -1,8 +1,8 @@
-Paragon Hacking
+Paragon Hacking (15)
     Co-Lead: Stephen Walentik
     Co-Lead: Nicholas Mokris
 
-    Programming:
+    Programming: (8)
         Lead: Nicholas Mokris
         Lead: Stephen Walentik
         John Best
@@ -12,17 +12,17 @@ Paragon Hacking
         James Schroyer
         Adam Hutchison
     
-    Art:
+    Art: (4)
         Lead: Geoff Basel
         Jason Papp
         Gene Centore
         Phillipa Robinson
         
-    Music:
+    Music: (2)
         Lead: Dane Schroyer
         Lead: Ryan Harris
 
-    Story:
+    Story: (1)
         Lead: Spencer Schroth
 
 
