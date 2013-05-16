@@ -6,7 +6,7 @@ public class HelloWorld{
         System.Console.WriteLine("Passcode: \n>");
 	string line = System.Console.ReadLine();
 	if(line == "Paragon"){
-	    System.Console.WriteLine("Good work, it compile sir!");
+	    System.Console.WriteLine("Correct passcode!");
 	}
     }
 }
