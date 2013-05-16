@@ -9,3 +9,13 @@ public class HelloWorld{
 	}
     }
 }
+/*
+protected override void Draw(GameTime gametime){
+    graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+
+    spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+    spriteBatch.Draw(myTexture, spritePosition, Color.White);
+    spriteBatch.End();
+
+    base.Draw(gametime);
+}*/
