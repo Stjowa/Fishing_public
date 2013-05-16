@@ -4,12 +4,60 @@ public class HelloWorld{
         System.Console.WriteLine("Hello World");
         System.Console.WriteLine("My first .EXE");
         System.Console.WriteLine("Passcode: \n>");
-	string line = System.Console.ReadLine();
-	if(line == "Paragon"){
-	    System.Console.WriteLine("Correct passcode!");
-	}
+	    string line = System.Console.ReadLine();
+	    if(line == "Paragon"){
+	        System.Console.WriteLine("Correct passcode!");
+	    }
+        
+        //Add args class and playing with it
+        args man = new args();
+        System.Console.WriteLine(man.getInt());
+        
+        //Well since the args class worked I want to play with multiple constructors
+        //So I built the foo class to play with this
+        int[] test = new int[10];
+        for(int i = 0; i < test.Length; ++i) test[i] = i;
+        foo dave = new foo(test);
+        System.Console.WriteLine(dave.getIntArrayAt(3));
     }
 }
+
+public class args{                                          //Simple class to test the use of the constructor
+    public static int argsInt;
+    
+    public args(){                                              //Simple constructor named args
+        argsInt = 5;                                                //Sets this in to 5
+    }
+
+    public int getInt(){                                        //Returns the int to user
+        return argsInt;
+    }
+}
+
+public class foo{                                           //Simple class to test the use of multiple constructors while playing
+    public const int CAPACITY = 500;                        //around with int[]
+    public int[] intArray;
+    public static int length;
+
+    public foo(){
+        intArray = new int[CAPACITY];                               //Makes new int[] with a size of CAPACITY
+        length = 0;                                                 //Sets the length to be 0 since this array is empty
+    }
+    public foo(int[] para){                                     //This is the constructor for an int[]
+        intArray = new int[CAPACITY];                               //Makes new int[] with a size of CAPACITY
+        for(int i = 0; (i < para.Length && i<500) ; ++i){           //For loop for turn para into the foo intArray
+//          System.Console.WriteLine(para[i]);                      //Added this for debugging
+            intArray[i] = para[i];                                  //para is being put into intArray
+        }
+        if(para.Length < 500) length = para.Length;                 //Sets the length to para
+        else length = 500;                                          //Makes sure to not go over the CAPACITY
+    }
+
+    public int getIntArrayAt(int local){                        //Returns intArray[local]
+        return intArray[local];                                     //"" ""
+    }
+}
+
 /*
 protected override void Draw(GameTime gametime){
     graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
