@@ -22,7 +22,7 @@ Paragon Hacking (15)
         Lead: Dane Schroyer
         Lead: Ryan Harris
 
-    Story: (1)
+    Design: (1)
         Lead: Spencer Schroth
 
 
