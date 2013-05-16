@@ -16,6 +16,7 @@ Paragon Hacking
         Lead: Geoff Basel
         Jason Papp
         Gene Centore
+        Phillipa Robinson
         
     Music:
         Lead: Dane Schroyer
