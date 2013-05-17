@@ -8,14 +8,12 @@ int main(int argc, char* args[]){
 
     SDL_Init(SDL_INIT_EVERYTHING);                                      //Starts SDL
 
-    screen = SDL_SetVideoMode(640, 480, 32, SDL_SWSURFACE);             //Sets up the screen
+    screen = SDL_SetVideoMode(1000, 700, 32, SDL_SWSURFACE);             //Sets up the screen
 
-    background = IMG_Load("background.bmp");                         //background is the image background.bmp
+    background = SDL_LoadBMP("background.bmp");                         //background is the image background.bmp
+    SDL_GetError();
 
-/*  SDL_Rect offset;
-    offset.x=0;
-    offset.y=0;*/
-    SDL_BlitSurface(screen, NULL, background, NULL);                    //This applies the image to the screen
+    SDL_BlitSurface(background, NULL, screen, NULL);                    //This applies the image to the screen
 
     SDL_Flip(screen);                                                   //Updates screen
 
