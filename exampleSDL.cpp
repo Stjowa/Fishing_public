@@ -8,7 +8,7 @@ int main(int argc, char* args[]){
 
     screen = SDL_SetVideoMode(640, 480, 32, SDL_SWSURFACE);             //Sets up the screen
 
-    background = SDL_LoadBMP("background.jpg");                         //hello is the image hello.bmp
+    background = SDL_LoadBMP("background.jpg");                         //background is the image background.bmp
 
     SDL_BlitSurface(background, NULL, screen, NULL);                    //This applies the image to the screen
 
