@@ -1,10 +1,11 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_ttf.h"
 #include "SDL/SDL_mixer.h"
+#include "SDL/SDL_image.h"
 #include <string>
 #include <iostream>
 
-SDL_Surface *SDL_loadImage(std::string);
+SDL_Surface* loadImage(std::string);
 void applySurface(int, int, SDL_Surface*, SDL_Surface*);
 
 int main(int argc, char* args[]){
@@ -31,7 +32,7 @@ int main(int argc, char* args[]){
 
     SDL_WM_SetCaption(GROUP_TITLE, NULL);
 
-    background = SDL_loadImage("background.bmp");                                                   //background is the image background.bmp
+    background = loadImage("background.bmp");                                                   //background is the image background.bmp
     SDL_GetError();
 
     applySurface(0, 0, background, screen);                                                         //This applies the image to the screen
@@ -53,11 +54,11 @@ int main(int argc, char* args[]){
     return 0;
 }
 
-SDL_Surface *SDL_loadImage(std::string filename){
+SDL_Surface* loadImage(std::string filename){
     SDL_Surface* loadedImage=NULL;                                                                  //Temp storage for loaded image
     SDL_Surface* optimizedImage=NULL;
 
-    loadedImage = SDL_LoadBMP(filename.c_str());                                                    //Loads the imaged passed in
+    loadedImage = IMG_Load(filename.c_str());                                                    //Loads the imaged passed in
 
     if(loadedImage!=NULL){                                                                          //Make sure the image was loaded
         optimizedImage = SDL_DisplayFormat(loadedImage);                                            //Created the optimized image

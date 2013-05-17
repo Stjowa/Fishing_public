@@ -11,7 +11,7 @@ msg:
 ###############################################################
 # Build and run all tests and output demonstration
 run:
-	g++ -o myprogram exampleSDL.cpp -lSDL -lSDL_ttf -lSDL_mixer
+	g++ -o myprogram exampleSDL.cpp -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
 	./myprogram
 
 ###############################################################
