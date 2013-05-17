@@ -8,6 +8,8 @@ SDL_Surface *SDL_loadImage(std::string);
 void applySurface(int, int, SDL_Surface*, SDL_Surface*);
 
 int main(int argc, char* args[]){
+    const char* GROUP_TITLE = "Paragon Hacking";
+    const char* GAME_NAME = "Fishing_public";
     const int SCREEN_WIDTH = 680;                                                                   //Width const for size of screen
     const int SCREEN_HEIGHT = 480;                                                                  //height const for size of screen
     const int SCREEN_BPP = 32;                                                                      //'B'its 'P'er 'P'ixel
@@ -27,14 +29,20 @@ int main(int argc, char* args[]){
         return 1;
     }
 
-    SDL_WM_SetCaption("Paragon Hacking", NULL);
+    SDL_WM_SetCaption(GROUP_TITLE, NULL);
 
-    background = SDL_loadImage("background.bmp");                                                     //background is the image background.bmp
+    background = SDL_loadImage("background.bmp");                                                   //background is the image background.bmp
     SDL_GetError();
 
-    SDL_BlitSurface(background, NULL, screen, NULL);                                                //This applies the image to the screen
-
-    SDL_Flip(screen);                                                                               //Updates screen
+    applySurface(0, 0, background, screen);                                                         //This applies the image to the screen
+    applySurface(100, 0, background, screen);
+    applySurface(0, 100, background, screen);
+    applySurface(100, 100, background, screen);
+    
+    if( SDL_Flip(screen) == -1){
+        std::cout << "screen could not be fliped to screen";
+        return 1;   
+    }                                                                               //Updates screen
 
     SDL_Delay(2000);                                                                                //Pause
 
