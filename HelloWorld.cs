@@ -1,3 +1,4 @@
+using System;
 
 public class HelloWorld{
     public static void Main(){
@@ -58,6 +59,14 @@ public class foo{                                           //Simple class to te
     }
 }
 
+//=================================================================
+//
+// NOT SURE WHY I INCLUDED THIS IN THE HW.CS FILE BUT IT WAS ALONG THE LINES
+// OF USING THIS TO HELP FURTHER THE UNDERSTANDING OF C#
+//
+// ================================================================
+
+
 /*
 protected override void Draw(GameTime gametime){
     graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -77,6 +86,9 @@ protected override void Draw(GameTime gametime){
 // AND C++. BUT TO MAKE THIS WORK WE WILL NEED THE PROPER
 // DLL FILES AMOUNG THESE AND I WILL CONT. WORKING ON THAT
 //                -STEPHEN
+// ALSO WE WILL NOT BE USING XNA FOR THIS PROJECT BUT
+// OPENGL SO START TAKING A LOOK INTO THAT AS WELL 
+//
 // =======================================================
 
 
