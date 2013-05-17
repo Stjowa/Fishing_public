@@ -65,7 +65,19 @@ int main(int argc, char* args[]){
 
     while(quit==false){
         while(SDL_PollEvent(&event)){
-            
+            if(event.type == SDL_KEYDOWN){
+                switch(event.key.keysym.sym){
+                    case SDLK_ESCAPE:
+                        quit=true;
+                        break;
+                    case SDLK_UP: 
+                    case SDLK_DOWN: 
+                    case SDLK_LEFT: 
+                    case SDLK_RIGHT: 
+                    default:
+                        break;
+                }
+            }
 
             if(event.type == SDL_QUIT){
                 quit=true;
