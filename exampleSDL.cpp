@@ -15,7 +15,7 @@ int main(int argc, char* args[]){
 /*  SDL_Rect offset;
     offset.x=0;
     offset.y=0;*/
-    SDL_BlitSurface(screen, NULL, background, &offset);                    //This applies the image to the screen
+    SDL_BlitSurface(screen, NULL, background, NULL);                    //This applies the image to the screen
 
     SDL_Flip(screen);                                                   //Updates screen
 
