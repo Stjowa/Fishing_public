@@ -14,7 +14,7 @@ Paragon Hacking (15)
     
     Art: (4)
         Lead: Geoff Basel
-        Jason Papp
+        Jason Papp (MIA)
         Gene Centore
         Phillipa Robinson
         
