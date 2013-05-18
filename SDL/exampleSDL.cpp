@@ -1,9 +1,17 @@
+//========================================================
+//
+//
+//
+//========================================================
+
 #include "SDL/SDL.h"
 #include "SDL/SDL_ttf.h"
 #include "SDL/SDL_mixer.h"
 #include "SDL/SDL_image.h"
 #include <string>
 #include <iostream>
+
+
 
 const char* GROUP_TITLE = "Paragon Hacking";
 const char* GAME_NAME = "Fishing_public";
@@ -16,18 +24,23 @@ SDL_Event event;
 TTF_Font* font=NULL;
 SDL_Color textColor = {255, 0, 0};
 
-SDL_Surface* background=NULL,
-             *screen=NULL,
-             *titleFont=NULL,
-             *singlePlayerFont=NULL,
-             *optionsFont=NULL,
-             *exitFont=NULL;
+SDL_Surface *background=NULL,
+            *screen=NULL,
+            *titleFont=NULL,
+            *singlePlayerFont=NULL,
+            *optionsFont=NULL,
+            *exitFont=NULL;
+
+
+
+class Button;
 
 SDL_Surface* loadImage(std::string);
 void applySurface(int, int, SDL_Surface*, SDL_Surface*);
 bool init();
 void cleanAndClose();
 bool loadFiles();
+//void setClips();
 
 
 int main(int argc, char* args[]){
@@ -63,8 +76,29 @@ int main(int argc, char* args[]){
         return 1;   
     }                                                                               //Updates screen
 
+    int buttonX=0,
+        buttonY=0;
+
     while(quit==false){
         while(SDL_PollEvent(&event)){
+            if(event.type == SDL_MOUSEMOTION){
+
+            }
+
+            if(event.type == SDL_MOUSEBUTTONDOWN){
+                //if(event.type == SDL_BUTTON_LEFT){
+                    buttonX = event.button.x;
+                    buttonY = event.button.y;
+
+                    std::cout << "LEFT: ";
+
+                    if((buttonX>350)&&(buttonX<445)&&(buttonY>420)&&(buttonY<450)){
+                        quit=true;
+                    }
+                //}
+                std::cout << "(" << buttonX << ", " << buttonY << " )" << std::endl;
+            }
+            
             if(event.type == SDL_KEYDOWN){
                 switch(event.key.keysym.sym){
                     case SDLK_ESCAPE:
@@ -101,6 +135,11 @@ SDL_Surface* loadImage(std::string filename){
     if(loadedImage!=NULL){                                                                          //Make sure the image was loaded
         optimizedImage = SDL_DisplayFormat(loadedImage);                                            //Created the optimized image
         SDL_FreeSurface(loadedImage);                                                               //Free the loaded (old) image
+    }
+
+    if(optimizedImage!=NULL){
+        Uint32 colorkey = SDL_MapRGB(optimizedImage->format, 255, 0, 255);
+        SDL_SetColorKey(optimizedImage, SDL_SRCCOLORKEY, colorkey);
     }
 
     return optimizedImage;
@@ -150,8 +189,115 @@ bool loadFiles(){
 
     font = TTF_OpenFont("starting.ttf", 52);
 
-    if(background==NULL) return false;
-    if(font==NULL) return false;
-    
+    if(background==NULL){
+        std::cout << "ERROR:backgound.jpg" << std::endl;   
+        return false;
+    }
+    if(font==NULL){
+        std::cout << "ERROR:font~starting.ttf" << std::endl; 
+        return false;
+    }
     return true;
 }
+
+
+
+
+
+
+
+
+
+
+/*
+void Button::setClips(){
+    clips[CLIPS_MOUSEOVER].x = 0;
+    clips[CLIPS_MOUSEOVER].y = 0;
+    clips[CLIPS_MOUSEOVER].w = 320;
+    clips[CLIPS_MOUSEOVER].h = 240;
+                     
+    clips[CLIPS_MOUSEOUT].x = 320;
+    clips[CLIPS_MOUSEOUT].y = 0;
+    clips[CLIPS_MOUSEOUT].w = 320;
+    clips[CLIPS_MOUSEOUT].h = 240;
+                  
+    clips[CLIPS_MOUSEDOWN].x = 0;
+    clips[CLIPS_MOUSEDOWN].y = 240;
+    clips[CLIPS_MOUSEDOWN].w = 320;
+    clips[CLIPS_MOUSEDOWN].h = 240;
+                                                    
+    clips[CLIPS_MOUSEUP].x = 320;
+    clips[CLIPS_MOUSEUP].y = 240;
+    clips[CLIPS_MOUSEUP].w = 320;
+    clips[CLIPS_MOUSEUP].h = 240;
+}
+
+
+
+//====================================================================================
+//
+// CLASS BUTTON 
+//
+//====================================================================================
+
+
+class Button{
+    public:
+        Button(int x, int y, int w, int h);
+        void handleEvents();
+        void show();
+    private:
+        SDL_Rect box;
+        SDL_Rect* clip;
+};
+
+Button::Button(int x, int y, int w, int h){
+    box.x = x;
+    box.y = y;
+    box.w = w;
+    box.h = h;
+
+    clip = &clips[ CLIP_MOUSEOUT ];
+}
+
+void Button::handleEvents(){
+    int x = 0, 
+        y = 0;
+    
+    if(event.type == SDL_MOUSEMOTION){
+        x = event.motion.x;
+        y = event.motion.y;
+
+        if( (x>box.x) && (x<box.x+box.w) && (y > box.y) && (y<box.y+box.h) ){
+            clip = &clips[CLIP_MOUSEOVER];
+        } else {
+            clip = &clips[CLIP_MOUSEOUT];
+        }
+    }
+
+    if(event.type == SDL_MOUSEBUTTONDOWN){
+        if(event.button.button == SDL_BUTTON_LEFT){
+            x = event.button.x;
+            y = event.button.y;
+
+            if( (x>box.x) && (x<box.x+box.w) && (y > box.y) && (y<box.y+box.h) ){
+                clip = clips[CLIP_MOUSEDOWN];
+            }
+        }
+    }
+
+    if( event.type == SDL_MOUSEBUTTONUP ) { 
+        if( event.button.button == SDL_BUTTON_LEFT ) {  
+            x = event.button.x; 
+            y = event.button.y; 
+    
+            if( ( x > box.x ) && ( x < box.x + box.w ) && ( y > box.y ) && ( y < box.y + box.h ) ) { 
+                &clips[CLIP_MOUSEUP]; 
+            } 
+        } 
+    }
+}
+
+void Button::show(){
+    applySurface(box.x, box.y, buttonSheet, screen, clip);
+}*/
