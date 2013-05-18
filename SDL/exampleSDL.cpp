@@ -67,15 +67,6 @@ int main(int argc, char* args[]){
     }
     
     applySurface(-200, -200, background, screen);                                                         //This applies the image to the screen
-//Starting Frame 
-    titleFont                = TTF_RenderText_Solid(font, "Fishing_public"  , textColor);
-    singlePlayerFont         = TTF_RenderText_Solid(font, "Single Player"   , textColor);
-    optionsFont              = TTF_RenderText_Solid(font, "Options"         , textColor);
-    exitFont                 = TTF_RenderText_Solid(font, "Exit"            , textColor);
-//Option Frame
-    optionSoundFont          = TTF_RenderText_Solid(font, "Sound"           , textColor);
-    optionDisplayFont        = TTF_RenderText_Solid(font, "Display"         , textColor),
-    optionDifficultyFont     = TTF_RenderText_Solid(font, "Difficulty"      , textColor);
 
     startFrame();
 
@@ -100,18 +91,23 @@ int main(int argc, char* args[]){
                     buttonY = event.button.y;
 
                     std::cout << "LEFT: ";
-
+                //Starting menu -> Options
                     if((buttonX>350)&&(buttonX<525)&&(buttonY>370)&&(buttonY<400)&&(frame==1)){
                         ++frame;
                         optionFrame();
                         //SDL_Delay(1000);
                     }
-
+                //Options menu -> Difficulty
                     if((buttonX>350)&&(buttonX<650)&&(buttonY>420)&&(buttonY<450)&&(frame==2)){
                         ++frame;
                         optionDifficultyFrame();
                     }
-
+                //Option menu -> Display
+                //Option menu -> Sound
+                //Difficulty -> Easy
+                //Difficulty -> Normal
+                //Difficulty -> Hard
+                //Start menu -> exit
                     if((buttonX>350)&&(buttonX<445)&&(buttonY>420)&&(buttonY<450)&&(frame==1)){
                         run=false;
                     }
@@ -254,7 +250,12 @@ void optionDifficultyFrame(){
 
 void startFrame(){
     applySurface(-200, -200, background, screen); 
-    
+   
+    titleFont                = TTF_RenderText_Solid(font, "Fishing_public"  , textColor);
+    singlePlayerFont         = TTF_RenderText_Solid(font, "Single Player"   , textColor);
+    optionsFont              = TTF_RenderText_Solid(font, "Options"         , textColor);
+    exitFont                 = TTF_RenderText_Solid(font, "Exit"            , textColor);
+
     applySurface(325,  50, titleFont          , screen);
     applySurface(350, 300, singlePlayerFont   , screen);
     applySurface(350, 350, optionsFont        , screen);
@@ -263,6 +264,10 @@ void startFrame(){
 
 void optionFrame(){
     applySurface(-350, -100, options, screen);
+
+    optionSoundFont          = TTF_RenderText_Solid(font, "Sound"           , textColor);
+    optionDisplayFont        = TTF_RenderText_Solid(font, "Display"         , textColor);
+    optionDifficultyFont     = TTF_RenderText_Solid(font, "Difficulty"      , textColor);
 
     applySurface(350, 200, optionSoundFont      , screen);
     applySurface(350, 300, optionDisplayFont    , screen);
