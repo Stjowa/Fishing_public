@@ -28,12 +28,16 @@ SDL_Color textColor = {255, 0, 0};
 SDL_Surface *background=NULL,
             *screen=NULL,
             *options=NULL,
+            *optionDifficulty=NULL,
             *titleFont=NULL,
             *singlePlayerFont=NULL,
             *optionsFont=NULL,
             *optionSoundFont=NULL,
             *optionDisplayFont=NULL,
             *optionDifficultyFont=NULL,
+            *optionDifficultyEasyFont=NULL,
+            *optionDifficultyNormalFont=NULL,
+            *optionDifficultyHardFont=NULL,
             *exitFont=NULL;
 
 
@@ -45,6 +49,7 @@ bool loadFiles();
 
 void startFrame();
 void optionFrame();
+void optionDifficultyFrame();
 
 
 int main(int argc, char* args[]){
@@ -62,12 +67,12 @@ int main(int argc, char* args[]){
     }
     
     applySurface(-200, -200, background, screen);                                                         //This applies the image to the screen
-    
+//Starting Frame 
     titleFont                = TTF_RenderText_Solid(font, "Fishing_public"  , textColor);
     singlePlayerFont         = TTF_RenderText_Solid(font, "Single Player"   , textColor);
     optionsFont              = TTF_RenderText_Solid(font, "Options"         , textColor);
     exitFont                 = TTF_RenderText_Solid(font, "Exit"            , textColor);
-
+//Option Frame
     optionSoundFont          = TTF_RenderText_Solid(font, "Sound"           , textColor);
     optionDisplayFont        = TTF_RenderText_Solid(font, "Display"         , textColor),
     optionDifficultyFont     = TTF_RenderText_Solid(font, "Difficulty"      , textColor);
@@ -98,10 +103,16 @@ int main(int argc, char* args[]){
 
                     if((buttonX>350)&&(buttonX<525)&&(buttonY>370)&&(buttonY<400)&&(frame==1)){
                         ++frame;
-                        optionFrame();     
+                        optionFrame();
+                        //SDL_Delay(1000);
                     }
 
-                    if((buttonX>350)&&(buttonX<445)&&(buttonY>420)&&(buttonY<450)){
+                    if((buttonX>350)&&(buttonX<650)&&(buttonY>420)&&(buttonY<450)&&(frame==2)){
+                        ++frame;
+                        optionDifficultyFrame();
+                    }
+
+                    if((buttonX>350)&&(buttonX<445)&&(buttonY>420)&&(buttonY<450)&&(frame==1)){
                         run=false;
                     }
                 //}
@@ -127,7 +138,8 @@ int main(int argc, char* args[]){
             }
         }
         
-        if(frame==1)  startFrame();
+        if(frame==1)    startFrame();
+        if(frame==2)    optionFrame();
 
         SDL_Flip(screen);
     }
@@ -193,12 +205,15 @@ void cleanAndClose(){
     //Add each image that needs to be freed here!
     SDL_FreeSurface(background);
     SDL_FreeSurface(options);
+    SDL_FreeSurface(optionDifficulty);
+
 
     SDL_Quit();
 }
 
 bool loadFiles(){
     
+    optionDifficulty = loadImage("background.jpg");
     options = loadImage("background.jpg");
     background = loadImage("background.jpg");
 
@@ -216,7 +231,25 @@ bool loadFiles(){
         std::cout << "ERROR:options" << std::endl;
         return false;
     }
+    if(optionDifficulty==NULL){
+        std::cout << "ERROR:optionDifficulty" << std::endl;
+        return false;
+    }
     return true;
+}
+
+void optionDifficultyFrame(){
+    applySurface(-500, 0, optionDifficulty, screen);
+
+    optionDifficultyEasyFont   = TTF_RenderText_Solid(font, "Easy"   , textColor);
+    optionDifficultyNormalFont = TTF_RenderText_Solid(font, "Normal" , textColor);
+    optionDifficultyHardFont   = TTF_RenderText_Solid(font, "Hard"   , textColor);
+
+    applySurface(350, 200, optionDifficultyEasyFont    , screen);
+    applySurface(350, 275, optionDifficultyNormalFont  , screen);
+    applySurface(350, 350, optionDifficultyHardFont    , screen);
+
+    SDL_Flip(screen);
 }
 
 void startFrame(){
@@ -231,9 +264,9 @@ void startFrame(){
 void optionFrame(){
     applySurface(-350, -100, options, screen);
 
-    applySurface(350, 225, optionSoundFont      , screen);
+    applySurface(350, 200, optionSoundFont      , screen);
     applySurface(350, 300, optionDisplayFont    , screen);
-    applySurface(350, 370, optionDifficultyFont , screen);
+    applySurface(350, 400, optionDifficultyFont , screen);
 
     SDL_Flip(screen);
 }
