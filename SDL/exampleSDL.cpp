@@ -192,7 +192,8 @@ bool init(){
 void cleanAndClose(){
     //Add each image that needs to be freed here!
     SDL_FreeSurface(background);
-    
+    SDL_FreeSurface(options);
+
     SDL_Quit();
 }
 
