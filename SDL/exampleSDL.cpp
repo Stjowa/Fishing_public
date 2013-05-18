@@ -15,6 +15,7 @@
 
 const char* GROUP_TITLE = "Paragon Hacking";
 const char* GAME_NAME = "Fishing_public";
+
 const int SCREEN_WIDTH = 1024;                                                               //Width const for size of screen
 const int SCREEN_HEIGHT = 640;                                                                  //height const for size of scree1
 const int SCREEN_BPP = 32;
@@ -36,15 +37,11 @@ SDL_Surface *background=NULL,
             *exitFont=NULL;
 
 
-
-class Button;
-
 SDL_Surface* loadImage(std::string);
 void applySurface(int, int, SDL_Surface*, SDL_Surface*);
 bool init();
 void cleanAndClose();
 bool loadFiles();
-//void setClips();
 
 
 int main(int argc, char* args[]){
@@ -74,10 +71,10 @@ int main(int argc, char* args[]){
     optionDisplayFont        = TTF_RenderText_Solid(font, "Display"         , textColor),
     optionDifficultyFont     = TTF_RenderText_Solid(font, "Difficulty"      , textColor);
 
-    applySurface(325, 50, titleFont, screen);
-    applySurface(350, 300, singlePlayerFont, screen);
-    applySurface(350, 350, optionsFont, screen);
-    applySurface(350, 400, exitFont, screen);
+    applySurface(325,  50, titleFont          , screen);
+    applySurface(350, 300, singlePlayerFont   , screen);
+    applySurface(350, 350, optionsFont        , screen);
+    applySurface(350, 400, exitFont           , screen);
 
     if( SDL_Flip(screen) == -1){
         std::cout << "screen could not be fliped to screen" << std::endl;
@@ -108,6 +105,8 @@ int main(int argc, char* args[]){
                         applySurface(350, 370, optionDifficultyFont , screen);
                         
                         SDL_Flip(screen);
+
+                        
                     }
 
                     if((buttonX>350)&&(buttonX<445)&&(buttonY>420)&&(buttonY<450)){
