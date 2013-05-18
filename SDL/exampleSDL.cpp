@@ -43,10 +43,13 @@ bool init();
 void cleanAndClose();
 bool loadFiles();
 
+void startFrame();
+void optionFrame();
+
 
 int main(int argc, char* args[]){
     SDL_Event event;
-    bool quit=false;
+    bool run=true;
     
     if(init()==false){
         std::cout << "Program is closing, could not be init" << std::endl;
@@ -57,8 +60,6 @@ int main(int argc, char* args[]){
         std::cout << "Program in closing, could not load files" << std::endl;
         return 1;
     }
-
-    background = loadImage("background.jpg");
     
     applySurface(-200, -200, background, screen);                                                         //This applies the image to the screen
     
@@ -71,10 +72,7 @@ int main(int argc, char* args[]){
     optionDisplayFont        = TTF_RenderText_Solid(font, "Display"         , textColor),
     optionDifficultyFont     = TTF_RenderText_Solid(font, "Difficulty"      , textColor);
 
-    applySurface(325,  50, titleFont          , screen);
-    applySurface(350, 300, singlePlayerFont   , screen);
-    applySurface(350, 350, optionsFont        , screen);
-    applySurface(350, 400, exitFont           , screen);
+    startFrame();
 
     if( SDL_Flip(screen) == -1){
         std::cout << "screen could not be fliped to screen" << std::endl;
@@ -82,9 +80,10 @@ int main(int argc, char* args[]){
     }                                                                               //Updates screen
 
     int buttonX=0,
-        buttonY=0;
+        buttonY=0,
+        frame=1;
 
-    while(quit==false){
+    while(run){
         while(SDL_PollEvent(&event)){
             if(event.type == SDL_MOUSEMOTION){
 
@@ -97,20 +96,13 @@ int main(int argc, char* args[]){
 
                     std::cout << "LEFT: ";
 
-                    if((buttonX>350)&&(buttonX<525)&&(buttonY>370)&&(buttonY<400)){
-                        applySurface(-350, -100, options, screen);
-                        
-                        applySurface(350, 225, optionSoundFont      , screen);
-                        applySurface(350, 300, optionDisplayFont    , screen);
-                        applySurface(350, 370, optionDifficultyFont , screen);
-                        
-                        SDL_Flip(screen);
-
-                        
+                    if((buttonX>350)&&(buttonX<525)&&(buttonY>370)&&(buttonY<400)&&(frame==1)){
+                        ++frame;
+                        optionFrame();     
                     }
 
                     if((buttonX>350)&&(buttonX<445)&&(buttonY>420)&&(buttonY<450)){
-                        quit=true;
+                        run=false;
                     }
                 //}
                 std::cout << "(" << buttonX << ", " << buttonY << " )" << std::endl;
@@ -119,7 +111,7 @@ int main(int argc, char* args[]){
             if(event.type == SDL_KEYDOWN){
                 switch(event.key.keysym.sym){
                     case SDLK_ESCAPE:
-                        quit=true;
+                        run=--frame;
                         break;
                     case SDLK_UP: 
                     case SDLK_DOWN: 
@@ -131,9 +123,13 @@ int main(int argc, char* args[]){
             }
 
             if(event.type == SDL_QUIT){
-                quit=true;
+                run=false;
             }
         }
+        
+        if(frame==1)  startFrame();
+
+        SDL_Flip(screen);
     }
 
     cleanAndClose();                                                                                     //Quit SDL
@@ -220,4 +216,23 @@ bool loadFiles(){
         return false;
     }
     return true;
+}
+
+void startFrame(){
+    applySurface(-200, -200, background, screen); 
+    
+    applySurface(325,  50, titleFont          , screen);
+    applySurface(350, 300, singlePlayerFont   , screen);
+    applySurface(350, 350, optionsFont        , screen);
+    applySurface(350, 400, exitFont           , screen);
+}
+
+void optionFrame(){
+    applySurface(-350, -100, options, screen);
+
+    applySurface(350, 225, optionSoundFont      , screen);
+    applySurface(350, 300, optionDisplayFont    , screen);
+    applySurface(350, 370, optionDifficultyFont , screen);
+
+    SDL_Flip(screen);
 }
