@@ -26,9 +26,13 @@ SDL_Color textColor = {255, 0, 0};
 
 SDL_Surface *background=NULL,
             *screen=NULL,
+            *options=NULL,
             *titleFont=NULL,
             *singlePlayerFont=NULL,
             *optionsFont=NULL,
+            *optionSoundFont=NULL,
+            *optionDisplayFont=NULL,
+            *optionDifficultyFont=NULL,
             *exitFont=NULL;
 
 
@@ -57,14 +61,18 @@ int main(int argc, char* args[]){
         return 1;
     }
 
-    background = loadImage("background.jpg");                                                   //background is the image background.bmp
-
+    background = loadImage("background.jpg");
+    
     applySurface(-200, -200, background, screen);                                                         //This applies the image to the screen
     
-    titleFont         = TTF_RenderText_Solid(font, "Fishing_public", textColor);
-    singlePlayerFont  = TTF_RenderText_Solid(font, "Single Player", textColor);
-    optionsFont       = TTF_RenderText_Solid(font, "Options", textColor);
-    exitFont          = TTF_RenderText_Solid(font, "Exit", textColor);
+    titleFont                = TTF_RenderText_Solid(font, "Fishing_public"  , textColor);
+    singlePlayerFont         = TTF_RenderText_Solid(font, "Single Player"   , textColor);
+    optionsFont              = TTF_RenderText_Solid(font, "Options"         , textColor);
+    exitFont                 = TTF_RenderText_Solid(font, "Exit"            , textColor);
+
+    optionSoundFont          = TTF_RenderText_Solid(font, "Sound"           , textColor);
+    optionDisplayFont        = TTF_RenderText_Solid(font, "Display"         , textColor),
+    optionDifficultyFont     = TTF_RenderText_Solid(font, "Difficulty"      , textColor);
 
     applySurface(325, 50, titleFont, screen);
     applySurface(350, 300, singlePlayerFont, screen);
@@ -91,6 +99,16 @@ int main(int argc, char* args[]){
                     buttonY = event.button.y;
 
                     std::cout << "LEFT: ";
+
+                    if((buttonX>350)&&(buttonX<525)&&(buttonY>370)&&(buttonY<400)){
+                        applySurface(-350, -100, options, screen);
+                        
+                        applySurface(350, 225, optionSoundFont      , screen);
+                        applySurface(350, 300, optionDisplayFont    , screen);
+                        applySurface(350, 370, optionDifficultyFont , screen);
+                        
+                        SDL_Flip(screen);
+                    }
 
                     if((buttonX>350)&&(buttonX<445)&&(buttonY>420)&&(buttonY<450)){
                         quit=true;
@@ -185,6 +203,7 @@ void cleanAndClose(){
 
 bool loadFiles(){
     
+    options = loadImage("background.jpg");
     background = loadImage("background.jpg");
 
     font = TTF_OpenFont("starting.ttf", 52);
@@ -195,6 +214,10 @@ bool loadFiles(){
     }
     if(font==NULL){
         std::cout << "ERROR:font~starting.ttf" << std::endl; 
+        return false;
+    }
+    if(options==NULL){
+        std::cout << "ERROR:options" << std::endl;
         return false;
     }
     return true;
