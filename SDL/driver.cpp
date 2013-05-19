@@ -11,9 +11,12 @@
 #include <string>
 #include <iostream>
 
-#include "driver.h"
+#include "exampleSDL.h"
+#include "framework.h"
 
 int main(int argc, char* args[]){
+    
+//Starts everything
     SDL_Event event;
     bool run=true;
     
@@ -31,6 +34,8 @@ int main(int argc, char* args[]){
         buttonY=0,
         frame=1;
 
+
+//Starts the program and event checking
     while(run){ 
         while(SDL_PollEvent(&event)){
         
@@ -45,7 +50,6 @@ int main(int argc, char* args[]){
                     buttonX = event.button.x;
                     buttonY = event.button.y;
 
-                    std::cout << "LEFT: ";
                 //Starting menu -> Options
                     if((buttonX>350)&&(buttonX<525)&&(buttonY>370)&&(buttonY<400)&&(frame==1)){
                         ++frame;
