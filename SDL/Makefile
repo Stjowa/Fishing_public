@@ -1,5 +1,6 @@
-C = g++
+CPP = g++
 OPTS = -Wall -g
+EXE = program
 
 ###############################################################
 # The first rule is run of only make is typed
@@ -10,10 +11,11 @@ msg:
 
 ###############################################################
 # Build and run all tests and output demonstration
-run:
-	g++ -o myprogram exampleSDL.cpp -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
+run: 
+	g++ -o myprogram driver.cpp -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
 	./myprogram
+
 
 ###############################################################
 clean:
-#rm -f *.o
+	rm -f *.o
