@@ -1,6 +1,6 @@
 //========================================================
 //
-//
+//  
 //
 //========================================================
 
@@ -12,13 +12,15 @@
 #include <iostream>
 
 
+char* GROUP_TITLE     = "Paragon Hacking";
+char* GAME_NAME       = "Fishing_public";
+char* GAME_DIFFICULTY = "normal";
 
-const char* GROUP_TITLE = "Paragon Hacking";
-const char* GAME_NAME = "Fishing_public";
+int SCREEN_WIDTH = 1024;                                                               //Width const for size of screen
+int SCREEN_HEIGHT = 640;                                                                  //height const for size of scree1
+int SCREEN_BPP = 32;
 
-const int SCREEN_WIDTH = 1024;                                                               //Width const for size of screen
-const int SCREEN_HEIGHT = 640;                                                                  //height const for size of scree1
-const int SCREEN_BPP = 32;
+Mix_Music *music = NULL;
 
 SDL_Event event;
 
@@ -51,7 +53,6 @@ void startFrame();
 void optionFrame();
 void optionDifficultyFrame();
 
-
 int main(int argc, char* args[]){
     SDL_Event event;
     bool run=true;
@@ -65,10 +66,6 @@ int main(int argc, char* args[]){
         std::cout << "Program in closing, could not load files" << std::endl;
         return 1;
     }
-    
-    applySurface(-200, -200, background, screen);                                                         //This applies the image to the screen
-
-    startFrame();
 
     if( SDL_Flip(screen) == -1){
         std::cout << "screen could not be fliped to screen" << std::endl;
@@ -79,12 +76,15 @@ int main(int argc, char* args[]){
         buttonY=0,
         frame=1;
 
-    while(run){
+    while(run){ 
         while(SDL_PollEvent(&event)){
+        
+        //Mouse is moved
             if(event.type == SDL_MOUSEMOTION){
 
             }
 
+        //Mouse button is pressed
             if(event.type == SDL_MOUSEBUTTONDOWN){
                 //if(event.type == SDL_BUTTON_LEFT){
                     buttonX = event.button.x;
@@ -114,7 +114,8 @@ int main(int argc, char* args[]){
                 //}
                 std::cout << "(" << buttonX << ", " << buttonY << " )" << std::endl;
             }
-            
+        
+        //Key pressed down            
             if(event.type == SDL_KEYDOWN){
                 switch(event.key.keysym.sym){
                     case SDLK_ESCAPE:
@@ -193,6 +194,11 @@ bool init(){
         return false;
     }
 
+    if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1){
+        std::cout << "Program is closing, OpenAudio could not init" << std::endl;
+        return false;
+    }
+
     SDL_WM_SetCaption(GROUP_TITLE, NULL);
     return true;
 }
@@ -249,12 +255,12 @@ void optionDifficultyFrame(){
 }
 
 void startFrame(){
-    applySurface(-200, -200, background, screen); 
+    applySurface(-200,-200, background, screen); 
    
-    titleFont                = TTF_RenderText_Solid(font, "Fishing_public"  , textColor);
-    singlePlayerFont         = TTF_RenderText_Solid(font, "Single Player"   , textColor);
-    optionsFont              = TTF_RenderText_Solid(font, "Options"         , textColor);
-    exitFont                 = TTF_RenderText_Solid(font, "Exit"            , textColor);
+    titleFont         = TTF_RenderText_Solid(font, "Fishing_public"  , textColor);
+    singlePlayerFont  = TTF_RenderText_Solid(font, "Single Player"   , textColor);
+    optionsFont       = TTF_RenderText_Solid(font, "Options"         , textColor);
+    exitFont          = TTF_RenderText_Solid(font, "Exit"            , textColor);
 
     applySurface(325,  50, titleFont          , screen);
     applySurface(350, 300, singlePlayerFont   , screen);
