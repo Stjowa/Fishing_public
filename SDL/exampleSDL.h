@@ -5,6 +5,8 @@
 #include <string>
 #include <iostream>
 
+#ifndef PARA_GON_HACKING_SDLSTUFF_H
+#define PARA_GON_HACKING_SDLSTUFF_H
 
 char* GROUP_TITLE = "Paragon Hacking";
 char* GAME_NAME = "Fishing_public";
@@ -22,19 +24,19 @@ TTF_Font* font=NULL;
 SDL_Color textColor = {255, 0, 0};
 
 SDL_Surface *background=NULL,
-                        *screen=NULL,
-                                    *options=NULL,
-                                                *optionDifficulty=NULL,
-                                                            *titleFont=NULL,
-                                                                        *singlePlayerFont=NULL,
-                                                                                    *optionsFont=NULL,
-                                                                                                *optionSoundFont=NULL,
-                                                                                                            *optionDisplayFont=NULL,
-                                                                                                                        *optionDifficultyFont=NULL,
-                                                                                                                                    *optionDifficultyEasyFont=NULL,
-                                                                                                                                                *optionDifficultyNormalFont=NULL,
-                                                                                                                                                            *optionDifficultyHardFont=NULL,
-                                                                                                                                                                        *exitFont=NULL;
+            *screen=NULL,
+            *options=NULL,
+            *optionDifficulty=NULL,
+            *titleFont=NULL,
+            *singlePlayerFont=NULL,
+            *optionsFont=NULL,
+            *optionSoundFont=NULL,
+            *optionDisplayFont=NULL,
+            *optionDifficultyFont=NULL,
+            *optionDifficultyEasyFont=NULL,
+            *optionDifficultyNormalFont=NULL,
+            *optionDifficultyHardFont=NULL,
+            *exitFont=NULL;
 
 
 SDL_Surface* loadImage(std::string);
@@ -107,7 +109,17 @@ void cleanAndClose(){
     SDL_FreeSurface(background);
     SDL_FreeSurface(options);
     SDL_FreeSurface(optionDifficulty);
-
+    SDL_FreeSurface(screen);
+    SDL_FreeSurface(titleFont);
+    SDL_FreeSurface(singlePlayerFont);
+    SDL_FreeSurface(optionsFont);
+    SDL_FreeSurface(optionSoundFont);
+    SDL_FreeSurface(optionDisplayFont);
+    SDL_FreeSurface(optionDifficultyFont);
+    SDL_FreeSurface(optionDifficultyEasyFont);
+    SDL_FreeSurface(optionDifficultyNormalFont);
+    SDL_FreeSurface(optionDifficultyHardFont);
+    SDL_FreeSurface(exitFont);
 
     SDL_Quit();
 }
@@ -139,45 +151,4 @@ bool loadFiles(){
     return true;
 }
 
-void optionDifficultyFrame(){
-    applySurface(-500, 0, optionDifficulty, screen);
-
-    optionDifficultyEasyFont   = TTF_RenderText_Solid(font, "Easy"   , textColor);
-    optionDifficultyNormalFont = TTF_RenderText_Solid(font, "Normal" , textColor);
-    optionDifficultyHardFont   = TTF_RenderText_Solid(font, "Hard"   , textColor);
-
-    applySurface(350, 200, optionDifficultyEasyFont    , screen);
-    applySurface(350, 275, optionDifficultyNormalFont  , screen);
-    applySurface(350, 350, optionDifficultyHardFont    , screen);
-
-    SDL_Flip(screen);
-}
-
-void startFrame(){
-    applySurface(-200,-200, background, screen); 
-   
-    titleFont         = TTF_RenderText_Solid(font, "Fishing_public"  , textColor);
-    singlePlayerFont  = TTF_RenderText_Solid(font, "Single Player"   , textColor);
-    optionsFont       = TTF_RenderText_Solid(font, "Options"         , textColor);
-    exitFont          = TTF_RenderText_Solid(font, "Exit"            , textColor);
-
-    applySurface(325,  50, titleFont          , screen);
-    applySurface(350, 300, singlePlayerFont   , screen);
-    applySurface(350, 350, optionsFont        , screen);
-    applySurface(350, 400, exitFont           , screen);
-}
-
-void optionFrame(){
-    applySurface(-350, -100, options, screen);
-
-    optionSoundFont          = TTF_RenderText_Solid(font, "Sound"           , textColor);
-    optionDisplayFont        = TTF_RenderText_Solid(font, "Display"         , textColor);
-    optionDifficultyFont     = TTF_RenderText_Solid(font, "Difficulty"      , textColor);
-
-    applySurface(350, 200, optionSoundFont      , screen);
-    applySurface(350, 300, optionDisplayFont    , screen);
-    applySurface(350, 400, optionDifficultyFont , screen);
-
-    SDL_Flip(screen);
-}
-
+#endif
