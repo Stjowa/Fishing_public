@@ -1,9 +1,3 @@
-//========================================================
-//
-//  
-//
-//========================================================
-
 #include "SDL/SDL.h"
 #include "SDL/SDL_ttf.h"
 #include "SDL/SDL_mixer.h"
@@ -12,12 +6,12 @@
 #include <iostream>
 
 
-char* GROUP_TITLE     = "Paragon Hacking";
-char* GAME_NAME       = "Fishing_public";
+char* GROUP_TITLE = "Paragon Hacking";
+char* GAME_NAME = "Fishing_public";
 char* GAME_DIFFICULTY = "normal";
 
-int SCREEN_WIDTH = 1024;                                                               //Width const for size of screen
-int SCREEN_HEIGHT = 640;                                                                  //height const for size of scree1
+int SCREEN_WIDTH = 1024; //Width const for size of screen
+int SCREEN_HEIGHT = 640; //height const for size of scree1
 int SCREEN_BPP = 32;
 
 Mix_Music *music = NULL;
@@ -28,19 +22,19 @@ TTF_Font* font=NULL;
 SDL_Color textColor = {255, 0, 0};
 
 SDL_Surface *background=NULL,
-            *screen=NULL,
-            *options=NULL,
-            *optionDifficulty=NULL,
-            *titleFont=NULL,
-            *singlePlayerFont=NULL,
-            *optionsFont=NULL,
-            *optionSoundFont=NULL,
-            *optionDisplayFont=NULL,
-            *optionDifficultyFont=NULL,
-            *optionDifficultyEasyFont=NULL,
-            *optionDifficultyNormalFont=NULL,
-            *optionDifficultyHardFont=NULL,
-            *exitFont=NULL;
+                        *screen=NULL,
+                                    *options=NULL,
+                                                *optionDifficulty=NULL,
+                                                            *titleFont=NULL,
+                                                                        *singlePlayerFont=NULL,
+                                                                                    *optionsFont=NULL,
+                                                                                                *optionSoundFont=NULL,
+                                                                                                            *optionDisplayFont=NULL,
+                                                                                                                        *optionDifficultyFont=NULL,
+                                                                                                                                    *optionDifficultyEasyFont=NULL,
+                                                                                                                                                *optionDifficultyNormalFont=NULL,
+                                                                                                                                                            *optionDifficultyHardFont=NULL,
+                                                                                                                                                                        *exitFont=NULL;
 
 
 SDL_Surface* loadImage(std::string);
@@ -52,101 +46,6 @@ bool loadFiles();
 void startFrame();
 void optionFrame();
 void optionDifficultyFrame();
-
-int main(int argc, char* args[]){
-    SDL_Event event;
-    bool run=true;
-    
-    if(init()==false){
-        std::cout << "Program is closing, could not be init" << std::endl;
-        return 1;
-    }
-
-    if(!loadFiles()){
-        std::cout << "Program in closing, could not load files" << std::endl;
-        return 1;
-    }
-
-    if( SDL_Flip(screen) == -1){
-        std::cout << "screen could not be fliped to screen" << std::endl;
-        return 1;   
-    }                                                                               //Updates screen
-
-    int buttonX=0,
-        buttonY=0,
-        frame=1;
-
-    while(run){ 
-        while(SDL_PollEvent(&event)){
-        
-        //Mouse is moved
-            if(event.type == SDL_MOUSEMOTION){
-
-            }
-
-        //Mouse button is pressed
-            if(event.type == SDL_MOUSEBUTTONDOWN){
-                //if(event.type == SDL_BUTTON_LEFT){
-                    buttonX = event.button.x;
-                    buttonY = event.button.y;
-
-                    std::cout << "LEFT: ";
-                //Starting menu -> Options
-                    if((buttonX>350)&&(buttonX<525)&&(buttonY>370)&&(buttonY<400)&&(frame==1)){
-                        ++frame;
-                        optionFrame();
-                        //SDL_Delay(1000);
-                    }
-                //Options menu -> Difficulty
-                    if((buttonX>350)&&(buttonX<650)&&(buttonY>420)&&(buttonY<450)&&(frame==2)){
-                        ++frame;
-                        optionDifficultyFrame();
-                    }
-                //Option menu -> Display
-                //Option menu -> Sound
-                //Difficulty -> Easy
-                //Difficulty -> Normal
-                //Difficulty -> Hard
-                //Start menu -> exit
-                    if((buttonX>350)&&(buttonX<445)&&(buttonY>420)&&(buttonY<450)&&(frame==1)){
-                        run=false;
-                    }
-                //}
-                std::cout << "(" << buttonX << ", " << buttonY << " )" << std::endl;
-            }
-        
-        //Key pressed down            
-            if(event.type == SDL_KEYDOWN){
-                switch(event.key.keysym.sym){
-                    case SDLK_ESCAPE:
-                        run=--frame;
-                        break;
-                    case SDLK_UP: 
-                    case SDLK_DOWN: 
-                    case SDLK_LEFT: 
-                    case SDLK_RIGHT: 
-                    default:
-                        break;
-                }
-            }
-
-            if(event.type == SDL_QUIT){
-                run=false;
-            }
-        }
-        
-        if(frame==1)    startFrame();
-        if(frame==2)    optionFrame();
-
-        SDL_Flip(screen);
-    }
-
-    cleanAndClose();                                                                                     //Quit SDL
-
-    std::cout << "Program is quiting" << std::endl;
-
-    return 0;
-}
 
 SDL_Surface* loadImage(std::string filename){
     SDL_Surface* loadedImage=NULL;                                                                  //Temp storage for loaded image
@@ -281,3 +180,4 @@ void optionFrame(){
 
     SDL_Flip(screen);
 }
+
